@@ -35,6 +35,10 @@
       <li data-price="12.99" data-category="books">노트 - <span class="price">$12.99</span></li>
       <li data-price="99.99" data-category="home">청소기 - <span class="price">$99.99</span></li>
     </ul>
+    <h2>선택된 제품</h2>
+    <ul id="selected-products">
+      <!-- js -->
+    </ul>
     <script>
       $(document).ready(function () {
         // 할인 버튼클릭 이벤트
@@ -75,7 +79,7 @@
           let isfiltered = $(this).data("filtered");
           // console.log(isfiltered); //undefined
           if (isfiltered) {
-            $("#product-list li").removeClass("highlight").show()
+            $("#product-list li").removeClass("highlight").show();
             // 필터가 적용된 상태인 경우, 필터 해제
           } else {
             // 필더 미적용 상태인 경우, 가격에 따라 필터링
@@ -99,6 +103,28 @@
           //필터 상태 토글
           $(this).data("filtered", !isfiltered);
         });
+        // map() 특정 범주의 제품 목록 가져오기
+        let selectedCategory = "electronics";
+        let selectedProducts = $("#product-list li")
+          .filter(function (index, element) {
+            // console.log(element);
+            return $(element).data("category") === selectedCategory;
+          })
+          .map(function (index, element) {
+            return $(element).text();
+          })
+          .get();
+        // console.log(selectedProducts);
+        $("#selected-products").html(
+          selectedProducts.map(function (product) {
+            // console.log(product);
+            return `<li>${product}</li>`
+          }).join("")
+          // selectedProducts.map(function (product) {
+          //   // console.log(product);
+          //   return `${product}`
+          // }).join(" , ")
+        );
       });
     </script>
   </body>
