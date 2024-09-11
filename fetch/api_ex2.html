@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Api data ex</title>
+  </head>
+  <body>
+    <div id="comments-container">
+      <!-- <div>
+      <h2>"postId": 1</h2>
+      <p>"id": 1</p>
+      <p>"name": "id labore ex et quam laborum"</p>
+      <p>"email": "Eliseo@gardner.biz"</p>
+      <p>"body": "laudantium enim quasi est quidem magnam voluptate</p>
+     </div> -->
+    </div>
+    <script>
+      fetch(`https://jsonplaceholder.typicode.com/comments?email=Eliseo@gardner.biz`)
+        .then((response) => {
+          return response.json();
+        })
+        .then((data) => {
+          // console.log(data);
+          const container = document.getElementById("comments-container");
+          data.forEach((comment) => {
+            const commentElement = document.createElement("div");
+            commentElement.innerHTML = `
+             <h2>"postId": ${comment.postId}</h2>
+             <p>"id": ${comment.id}</p>
+             <p>"name": ${comment.name}</p>
+             <p>"email": ${comment.email}</p>
+             <p>"body": ${comment.body}</p>
+            `
+            container.appendChild(commentElement)
+          });
+        })
+        .catch((error)=>{
+          console.error("Error", error);
+        });
+    </script>
+  </body>
+</html>

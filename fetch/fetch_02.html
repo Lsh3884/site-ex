@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>fetch</title>
+  </head>
+  <body>
+    <div id="display1">
+      <!-- js  content.html-->
+    </div>
+    <div id="display2">
+      <!-- js  content.html-->
+    </div>
+    <script>
+      fetch("content.html")
+      .then(response=>{
+        if(!response.ok){
+          throw new Error("요청실패")
+        }
+        return response.text()
+        console.log(response);
+        
+      })
+      .then(data=>{
+        console.log(data);
+        document.getElementById("display1").innerHTML = data
+      })
+      .catch(error => {
+        console.error("Error:" , error);
+        
+      })
+      fetch("content2.html")
+      .then(response=>{
+        if(!response.ok){
+          throw new Error("요청실패")
+        }
+        return response.text()
+        console.log(response);
+        
+      })
+      .then(data=>{
+        console.log(data);
+        document.getElementById("display2").innerHTML = data
+      })
+      .catch(error => {
+        console.error("Error:" , error);
+        
+      })
+    </script>
+  </body>
+</html>
