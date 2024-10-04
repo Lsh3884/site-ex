@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>localStorage 데이터 저장</title>
+  </head>
+  <body>
+    <h1>사용자 정보 저장</h1>
+    <form id="userForm">
+      <!-- 아이디 -->
+      <label for="userId">아이디 :</label>
+      <input type="text" id="userId" name="userId" required /><br /><br />
+      <label for="theme">테마 선택 :</label>
+      <!-- 테마 선택 -->
+      <select name="theme" id="theme">
+        <option value="dark">다크</option>
+        <option value="light">라이트</option></select
+      ><br /><br />
+      <!-- 언어선택 -->
+      <label for="languge">언어 선택 :</label>
+      <select name="languge" id="languge">
+        <option value="ko">한국어</option>
+        <option value="jp">일본어</option>
+        <option value="en">영어</option></select
+      ><br /><br />
+      <!-- 저장 -->
+      <button type="submit">저장하기</button>
+    </form>
+
+    <script>
+      const userForm = document.getElementById("userForm");
+      userForm.addEventListener("submit", function (e) {
+        e.preventDefault();
+        // 입력값 가져오기
+        const userId = document.getElementById("userId").value;
+        // console.log(userId);
+        const theme = document.getElementById("theme").value;
+        const languge = document.getElementById("languge").value;
+        // console.log(userId, theme, languge);
+        // 로컬스토리지에 저장
+        localStorage.setItem("userId", userId);
+        localStorage.setItem("theme", theme);
+        localStorage.setItem("languge", languge);
+        alert("사용자 정보가 저장되었습니다.");
+        // 입략값 초기화
+        document.getElementById("userId").value = "";
+        document.getElementById("theme").value = "";
+        document.getElementById("languge").value = "";
+      });
+    </script>
+  </body>
+</html>
