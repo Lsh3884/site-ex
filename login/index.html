@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Main</title>
+    <title>main 페이지</title>
     <style>
       /* 기본 스타일 */
       body {
@@ -62,17 +62,16 @@
       #username-display {
         font-size: 20px;
         color: #3d3d3d;
-        /* width: 60%; */
         margin-top: 8px;
         display: inline-block;
         margin-left: 100px;
       }
+
       #login-section {
         width: 30%;
       }
     </style>
   </head>
-
   <body>
     <div class="wrap">
       <div id="signup-section">
@@ -91,17 +90,61 @@
     <div class="userlogin" id="userlogin">
       <!-- 로그인된 사용자 정보가 있으면 출력 -->
     </div>
-
     <script>
-      // 로그인/회원가입 버튼 클릭시 호출되는 함수
-      // 로그인 버튼 클릭시 페이지이덩
+      // 페이지가 로드될 때 대시보드 화면을 표시
+      window.onload = function () {
+        showInitDashboard();
+      };
+      
+      // 로그인 버튼 클릭시 페이지 이동
       document.getElementById("login-button").addEventListener("click", function () {
         window.location.href = "login.html";
       });
+
+      // 회원가입 버튼 클릭시 페이지 이동
       document.getElementById("signup-button").addEventListener("click", function () {
         window.location.href = "signup.html";
       });
-      // 회원가입 버튼 클릭시 페이지이덩
+
+      // 메인 페이지 화면 표시 함수
+      function showInitDashboard() {
+        // 현재 페이지의 URL에서 쿼리 문자열을 가져와서 URLSearchParams 객체 생성
+        let params = new URLSearchParams(window.location.search);
+
+        // 'username'이라는 쿼리 매개변수 값을 추출
+        let username = params.get("username");
+
+        if (username) {
+          document.getElementById("login-section").style.display = "none";
+          document.getElementById("dashboard-section").style.display = "block";
+          document.getElementById("username-display").textContent = `${username}님! 환영합니다.`;
+          document.getElementById("userlogin").textContent = `로그인된 사용자: ${username}`;
+        } else {
+          document.getElementById("login-section").style.display = "block";
+          document.getElementById("dashboard-section").style.display = "none";
+          document.getElementById("logout-button").style.display = "none"; // 로그아웃 버튼 숨김
+          document.getElementById("userlogin").textContent = ""; // 로그인 정보 초기화
+        }
+      }
+
+      // 로그아웃 기능
+      document.getElementById("logout-button").addEventListener("click", function () {
+        document.getElementById("login-section").style.display = "block";
+        document.getElementById("dashboard-section").style.display = "none";
+        document.getElementById("userlogin").textContent = "";
+        clearUserData(); // Clear login data
+        clearUsernameParam(); // Clear or reset the username parameter
+      });
+      function clearUserData() {
+        localStorage.removeItem("username");
+      }
+
+      function clearUsernameParam() {
+        var url = new URL(window.location.href);
+        url.searchParams.delete("username");
+        window.history.replaceState({}, "", url.toString());
+      }
+    
     </script>
   </body>
 </html>
